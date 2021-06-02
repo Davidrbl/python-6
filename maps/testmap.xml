@@ -1,0 +1,88 @@
+<World>
+  <Rooms>
+    <Room>
+      <Items>
+        <Item>
+          <Name>
+            itemname
+          </Name>
+          <Dupes>
+
+          </Dupes>
+        </Item>
+      </Items>
+    </Room>
+  </Rooms>
+</World>
+
+#=====ITEM=====#
+<Item>
+  <Name>
+    itemname
+  </Name>
+  <Dupes>
+    dupe1,
+    dupe2
+  </Dupes>
+</Item>
+
+  #=====KEY=====#
+<Key>
+  <Name>
+    keyname
+  </Name>
+  <Room1>
+    fromroom,
+    fromroom2
+  </Room1>
+  <Room2>
+    toroom,
+    toroom2
+  </Room2>
+  <Dupes>
+    dupe1,
+    dype2
+  </Dupes>
+</Key>
+
+#=====NPCs=====#
+<NPC>
+  <Name>
+    personname
+  </Name>
+  <Dialogue>
+    persondialogue
+  </Dialogue>
+  <Gift>
+    <Item>
+      <Name>
+        itemname
+      </Name>
+      <Dupes>
+        dupe1,
+        dupe2
+      </Dupes>
+    </Item>
+  </Gift>
+</NPC>
+
+#=====ROOM=====#
+<Room>
+  <Name>
+    roomname
+  </Name>
+  <Exits>
+  <Items>
+    <Item>
+      <Name>
+        itemname
+      </Name>
+      <Dupes>
+
+      </Dupes>
+    </Item>
+  </Items>
+  <People>
+
+  </People>
+</Room>

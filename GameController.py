@@ -123,18 +123,18 @@ class GameController:
 
                 beginindex = 0
                 roombeginindexes = []
-                while(beginindex is not 0):
-                    beginindex = text.find("<Room>", beginindex)
-                    print("peepee"+str(beginindex))
-                    roombeginindexes.append(beginindex)
-                    beginindex += 1
+
+                #while (not laatstegevonden)
+                beginindex = text.find("<Room>", beginindex)
+
+                print(beginindex)
 
 
                 roombeginindexes.pop(len(roombeginindexes)-1)
 
                 print(roombeginindexes)
 
-                print("i am donzo")
+                print("i am dunzo")
 
 
             except Exception as err:

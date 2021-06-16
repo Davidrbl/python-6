@@ -53,9 +53,8 @@ class World:
         self.rooms = [self.Cave, self.River, self.Town, self.Forest, self.Mountains, self.Castle, self.Wizard_Lab]
         '''
         itemlist = []
-        keylist = []
         npclist = []
-        trilist = []
+
         for i in range(numrooms):
             itemlist.append([])
             keylist.append([])
@@ -64,38 +63,27 @@ class World:
 
         for item in allItems:
             #ITEMS GOEDMAKEN
-            #print(item.getPlace())
-            #print(self.rooms[self.roomnamelist.index(item.getPlace())].name)
-            #self.rooms[self.roomnamelist.index(item.getPlace())].add_item(item)
             print("Item: " + item.getName() + " gaat naar " + self.allnames[self.allnames.index(item.getPlace())])
             itemlist[self.allnames.index(item.getPlace())].append(item)
 
         for key in allkeys:
             #KEYS GOEDMAKEN
             #print(key.getPlace())
-            #print(self.rooms[self.roomnamelist.index(key.getPlace())].name)
-            #self.rooms[self.roomnamelist.index(key.getPlace())].add_item(key)
             print("Item: " + key.getName() + " gaat naar " + self.allnames[self.allnames.index(key.getPlace())])
             itemlist[self.allnames.index(key.getPlace())].append(key)
 
         for npc in allnpcs:
             #NPCS GOEDMAKEN
-            #self.rooms[self.roomnamelist.index(npc.getPlace())].add_person(npc)
             print("Item: " + npc.getName() + " gaat naar " + self.allnames[self.allnames.index(npc.getPlace())])
             npclist[self.allnames.index(npc.getPlace())].append(npc)
 
         for tri in alltriforces:
             #TRIFORCES GOEDMAKEN
-            #self.rooms[self.roomnamelist.index(tri.getPlace())].add_item(tri)
             print("Item: " + tri.getName() + " gaat naar " + self.allnames[self.allnames.index(tri.getPlace())])
             itemlist[self.allnames.index(tri.getPlace())].append(tri)
 
         #Exits goed maken voor de rooms.
-        '''
-        self.roomnamelist = []
-        for room in self.rooms:
-            self.roomnamelist.append(room.name)
-        '''
+
         self.rooms = []
         for i in range(numrooms):
             print("Creating room with name: " + self.allnames[i] + " exits: " + str(allexits[i]) + " items: " + str(itemlist[i]) + " npcs: " + str(npclist[i]))
@@ -113,14 +101,6 @@ class World:
                     print('ERROR bij syncing van rooms en exits' + str(err))
             room.setExits(exitslist)
 
-        '''
-        print(itemlist)
-        print(keylist)
-        print(npclist)
-        print(trilist)
-        '''
-
-        input()
 
     def add_room(self, room):
         self.rooms.append(room)

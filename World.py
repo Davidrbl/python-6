@@ -12,8 +12,9 @@ class World:
         numrooms = 7
         #==========ITEMS=========#
         rock = Item("A rock", "Cave")
+        test = Item("test", "River")
 
-        allItems = [rock]
+        allItems = [rock, test]
         #==========KEYS==========#
         key_casF = Key("Key to castle", "Forest", ["Forest", "Mountains"], ["Castle"], ["Key to castle"])
         key_casM = Key("Key to castle", "Mountains",["Forest", "Mountains"], ["Castle"], ["Key to castle"])
@@ -66,7 +67,7 @@ class World:
             #print(item.getPlace())
             #print(self.rooms[self.roomnamelist.index(item.getPlace())].name)
             #self.rooms[self.roomnamelist.index(item.getPlace())].add_item(item)
-            print("allitems: "+ str(allItems))
+            print("Item: " + item.getName() + " gaat naar " + self.allnames[self.allnames.index(item.getPlace())])
             itemlist[self.allnames.index(item.getPlace())].append(item)
 
         for key in allkeys:
@@ -74,20 +75,20 @@ class World:
             #print(key.getPlace())
             #print(self.rooms[self.roomnamelist.index(key.getPlace())].name)
             #self.rooms[self.roomnamelist.index(key.getPlace())].add_item(key)
-            print("allkeys: "+ str(allkeys))
-            keylist[self.allnames.index(key.getPlace())].append(key)
+            print("Item: " + key.getName() + " gaat naar " + self.allnames[self.allnames.index(key.getPlace())])
+            itemlist[self.allnames.index(key.getPlace())].append(key)
 
         for npc in allnpcs:
             #NPCS GOEDMAKEN
             #self.rooms[self.roomnamelist.index(npc.getPlace())].add_person(npc)
-            print("allnpcs: "+ str(allnpcs))
-            keylist[self.allnames.index(npc.getPlace())].append(npc)
+            print("Item: " + npc.getName() + " gaat naar " + self.allnames[self.allnames.index(npc.getPlace())])
+            npclist[self.allnames.index(npc.getPlace())].append(npc)
 
         for tri in alltriforces:
             #TRIFORCES GOEDMAKEN
             #self.rooms[self.roomnamelist.index(tri.getPlace())].add_item(tri)
-            print("alltriforces: "+ str(alltriforces))
-            trilist[self.allnames.index(tri.getPlace())].append(tri)
+            print("Item: " + tri.getName() + " gaat naar " + self.allnames[self.allnames.index(tri.getPlace())])
+            itemlist[self.allnames.index(tri.getPlace())].append(tri)
 
         #Exits goed maken voor de rooms.
         '''
@@ -97,6 +98,7 @@ class World:
         '''
         self.rooms = []
         for i in range(numrooms):
+            print("Creating room with name: " + self.allnames[i] + " exits: " + str(allexits[i]) + " items: " + str(itemlist[i]) + " npcs: " + str(npclist[i]))
             newroom = Room(self.allnames[i], allexits[i], itemlist[i], npclist[i])
             self.rooms.append(newroom)
 
@@ -117,7 +119,7 @@ class World:
         print(npclist)
         print(trilist)
         '''
-        
+
         input()
 
     def add_room(self, room):

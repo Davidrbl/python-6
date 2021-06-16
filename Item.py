@@ -1,6 +1,7 @@
 class Item:
-    def __init__(self, _name, dupes):
+    def __init__(self, _name, _place, dupes=[]):
         self.name = _name
+        self.place = _place
         self.dupes = dupes
 
     def getName(self):
@@ -8,6 +9,9 @@ class Item:
 
     def setName(self, name):
         self.name = name
+
+    def getPlace(self):
+        return self.place
 
     def onPickup(self, game):
         if (len(self.dupes) != 0):

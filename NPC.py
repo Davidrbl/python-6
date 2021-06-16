@@ -1,7 +1,7 @@
 from Item import Item
 
 class NPC(Item):
-    def __init__(self, _name, _dialogue, _gift=None):
+    def __init__(self, _name, _place, _dialogue, _gift=None):
         words = _dialogue.split()
         doneDialogue = []
         currentLine = ''
@@ -17,6 +17,7 @@ class NPC(Item):
         doneDialogue.append(currentLine)
 
         self.name = _name
+        self.place = _place
         self.dialogue = doneDialogue
         self.gift = _gift
         self.talkedto = False

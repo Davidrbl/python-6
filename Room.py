@@ -24,8 +24,15 @@ class Room:
 
         game.printFooter()
 
-    def add_item(item):
+    def add_item(self, item):
+        print("ik, " + self.name + ", voeg nu '" + item.getName() + "' toe aan mijn items\n")
+        #a = self.items
+        #a.append(item)
+        #self.setItems(a)
         self.items.append(item)
+
+    def add_person(self, person):
+        self.people.append(person)
 
     def getExits(self):
         return self.exits

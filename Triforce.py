@@ -1,8 +1,8 @@
 from Item import Item
 
 class Triforce(Item):
-    def __init__(self, _name):
-        super().__init__(_name, [])
+    def __init__(self, _name, _place):
+        super().__init__(_name, _place, [])
 
     def onPickup(self, game):
         Item.onPickup(self,game)

@@ -42,6 +42,7 @@ class GameController:
             except Exception as error:
                 self.printHeader()
                 self.printRegel("ERROR: probeer het nog een keer.")
+                print(error)
                 #self.printRegel(error)
                 self.printFooter()
         else:
@@ -163,7 +164,7 @@ class GameController:
     def __init__(self):
         self.schermbreedte = 70
         self.clear()
-        self.readWorldfromXML()
+        #self.readWorldfromXML()
         self.clear()
         self.notDone = True
 
@@ -175,7 +176,7 @@ class GameController:
         self.commdesc = ["Use to pick up item in current room",
                          "Use to go through an exit",
                          "Use to see your inventory",
-                         "Ues to talk to people in the current room",
+                         "Use to talk to people in the current room",
                          "Use to see all commands"]
 
         self.triforcecount = 3

@@ -109,17 +109,17 @@ class GameController:
 
         self.printHeader()
         self.printRegel("Uit welk file wilt u de map lezen?")
+        self.printRegel("Voer niets in voor default.")
         self.printFooter()
 
         location = input()
 
-        last = location[-4:]
+        if location == '':
+            location = 'default.xml'
 
-        if last == ".txt":
-            self.world.create_worldTXT(location)
-        elif last == ".xml":
+        try:
             self.world.create_worldXML(location)
-        else:
+        except Exception as err:
             self.printHeader()
             self.printRegel("Dat is geen valide file.")
             self.printFooter()

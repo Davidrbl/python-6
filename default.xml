@@ -1,0 +1,41 @@
+<World>
+  <Room name="Cave">
+    <Exit name="River"/>
+    <Exit name="Town"/>
+    <Item name="A rock" dupes=""/>
+  </Room>
+  <Room name="River">
+    <Exit name="Cave"/>
+    <Exit name="Forest"/>
+    <NPC name="An old fisherman">
+      Hey, was that you, walkin' out that cave? Hmm... Not the talkative type I see. You don't look too good, there's a town nearby if you wanna clean yourself up a little bit. Out here, your're gonna need every bit of help you can get, and it's dangerous to go alone, so, take this.
+      <Item name="A disgusting fish" dupes=""/>
+    </NPC>
+  </Room>
+  <Room name="Town">
+    <Exit name="Cave"/>
+    <NPC name="Mysterious man">
+      Hey, you! you better watch out here. Next up are those mountains, watch your step around the edges!
+    </NPC>
+    <Exit name="Mountains"/>
+  </Room>
+  <Room name="Forest">
+    <Exit name="River"/>
+    <Tri name="Triforce of the forest"/>
+    <Key name="Key to the castle" dupes="Key to the castle" rooms1="Castle" rooms2="Forest,Mountains"/>
+  </Room>
+  <Room name="Mountains">
+    <Exit name="Town"/>
+    <Key name="Key to the castle" dupes="Key to the castle" rooms1="Castle" rooms2="Forest,Mountains"/>
+  </Room>
+  <Room name="Castle">
+    <Tri name="Triforce of the king"/>
+    <Key name="Key to the laboratory" dupes="" rooms1="River,Town,Forest,Mountains" rooms2="Laboratory"/>
+  </Room>
+  <Room name="Laboratory">
+    <NPC name="The wizard">
+      Well hello there, you've done well to get to this place. I shall now reward your efforts with the last triforce you need. Collect it!
+    </NPC>
+    <Tri name="Triforce of the wizard"/>
+  </Room>
+</World>

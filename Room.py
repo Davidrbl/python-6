@@ -6,7 +6,6 @@ class Room:
         self.name = _name
 
     def add_exit(self, room):
-        #print(room.name + " toegevoegd aan " + self.name)
         self.exits.append(room)
 
     def describe(self, game):
@@ -25,10 +24,6 @@ class Room:
         game.printFooter()
 
     def add_item(self, item):
-        print("ik, " + self.name + ", voeg nu '" + item.getName() + "' toe aan mijn items\n")
-        #a = self.items
-        #a.append(item)
-        #self.setItems(a)
         self.items.append(item)
 
     def add_person(self, person):

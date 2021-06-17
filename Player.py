@@ -17,12 +17,10 @@ class Player:
         return self.location
 
     def pick_up(self, itemstring, room, game):
-        #print(len(room.items))
         for i in range(len(room.items)):
             if (room.items[i].name == itemstring):
                 item = room.items[i]
                 self.inventory.append(item)
-                print("picked up " + item.name)
                 room.items[i].onPickup(game)
                 #room.items.pop(i)
                 break

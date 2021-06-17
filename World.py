@@ -3,6 +3,7 @@ from Key import Key
 from NPC import NPC
 from Item import Item
 from Triforce import Triforce
+from lxml import etree
 
 class World:
     def __init__(self, _rooms=[]):
@@ -41,25 +42,12 @@ class World:
         allexits = [["River", "Town"],["Cave", "Forest"],["Cave", "Mountains"],["River"],["Town"],[],[]]
 
         #==========ROOMS==========#
-        '''
-        self.Cave = Room("Cave", ["River", "Town"])
-        self.River = Room("River", ["Cave", "Forest"])
-        self.Town = Room("Town", ["Cave", "Mountains"])
-        self.Forest = Room("Forest", ["River"])
-        self.Mountains = Room("Mountains", ["Town"])
-        self.Castle = Room("Castle", [])
-        self.Wizard_Lab = Room("Laboratory", [])
-
-        self.rooms = [self.Cave, self.River, self.Town, self.Forest, self.Mountains, self.Castle, self.Wizard_Lab]
-        '''
         itemlist = []
         npclist = []
 
         for i in range(numrooms):
             itemlist.append([])
-            keylist.append([])
             npclist.append([])
-            trilist.append([])
 
         for item in allItems:
             #ITEMS GOEDMAKEN
@@ -68,7 +56,6 @@ class World:
 
         for key in allkeys:
             #KEYS GOEDMAKEN
-            #print(key.getPlace())
             print("Item: " + key.getName() + " gaat naar " + self.allnames[self.allnames.index(key.getPlace())])
             itemlist[self.allnames.index(key.getPlace())].append(key)
 
@@ -86,7 +73,7 @@ class World:
 
         self.rooms = []
         for i in range(numrooms):
-            print("Creating room with name: " + self.allnames[i] + " exits: " + str(allexits[i]) + " items: " + str(itemlist[i]) + " npcs: " + str(npclist[i]))
+            #print("Creating room with name: " + self.allnames[i] + " exits: " + str(allexits[i]) + " items: " + str(itemlist[i]) + " npcs: " + str(npclist[i]))
             newroom = Room(self.allnames[i], allexits[i], itemlist[i], npclist[i])
             self.rooms.append(newroom)
 
@@ -101,6 +88,122 @@ class World:
                     print('ERROR bij syncing van rooms en exits' + str(err))
             room.setExits(exitslist)
 
+    def create_worldXML(self, location):
+        tree = etree.parse(location)
+
+        root = tree.getroot()
+
+        self.rooms = []
+        self.numrooms = 0
+        self.allnames = []
+
+        for room in root.findall("Room"):
+            roomname = room.attrib["name"]
+            self.allnames.append(roomname)
+            self.numrooms += 1
+
+            roomexits = []
+            for exit in room.findall("Exit"):
+                print(exit.attrib)
+                roomexits.append(exit.attrib["name"])
+
+            roomitems = []
+            for item in room.findall("Item"):
+                print(item.attrib)
+                itemname = item.attrib["name"]
+                itemdupes = item.attrib["dupes"]
+                if (itemdupes == ''):
+                    itemdupes = []
+                else:
+                    itemdupes = itemdupes.split(',')
+                itemobject = Item(itemname, "", itemdupes)
+                roomitems.append(itemobject)
+
+            roomnpcs = []
+            for npc in room.findall("NPC"):
+                print(npc.attrib)
+                hasitem = False
+                npcname = npc.attrib["name"]
+                npcdialogue = npc.text
+                if (len(npc.findall("Item")) is not 0):
+                    hasitem = True
+                    npcitem = npc.find("Item")
+                    npcitemname = npcitem.attrib["name"]
+                    npcitemdupes = npcitem.attrib["dupes"].split(",")
+                    npcitem = Item(npcitemname, "", npcitemdupes)
+
+                if hasitem:
+                    npcobject = NPC(npcname, "", npcdialogue, npcitem)
+                else:
+                    npcobject = NPC(npcname, "", npcdialogue)
+
+                roomnpcs.append(npcobject)
+
+            roomobject = Room(roomname, roomexits, roomitems, roomnpcs)
+            self.rooms.append(roomobject)
+
+        print('epic poggers')
+        print(self.numrooms)
+
+        for room in self.rooms:
+            #EXITS GOEDMAKEN
+            exitslist = []
+            for exit in room.getExits():
+                #try:
+                exitslist.append(self.rooms[self.allnames.index(exit)])
+                #except Exception as err:
+                #    print('ERROR bij syncing van rooms en exits' + str(err))
+            room.setExits(exitslist)
+
+    def create_worldTXT(self, location):
+        #========GETELEMENTS++++++#
+
+        #==========ROOMS==========#
+        itemlist = []
+        npclist = []
+
+        for i in range(numrooms):
+            itemlist.append([])
+            npclist.append([])
+
+        for item in allItems:
+            #ITEMS GOEDMAKEN
+            print("Item: " + item.getName() + " gaat naar " + self.allnames[self.allnames.index(item.getPlace())])
+            itemlist[self.allnames.index(item.getPlace())].append(item)
+
+        for key in allkeys:
+            #KEYS GOEDMAKEN
+            print("Item: " + key.getName() + " gaat naar " + self.allnames[self.allnames.index(key.getPlace())])
+            itemlist[self.allnames.index(key.getPlace())].append(key)
+
+        for npc in allnpcs:
+            #NPCS GOEDMAKEN
+            print("Item: " + npc.getName() + " gaat naar " + self.allnames[self.allnames.index(npc.getPlace())])
+            npclist[self.allnames.index(npc.getPlace())].append(npc)
+
+        for tri in alltriforces:
+            #TRIFORCES GOEDMAKEN
+            print("Item: " + tri.getName() + " gaat naar " + self.allnames[self.allnames.index(tri.getPlace())])
+            itemlist[self.allnames.index(tri.getPlace())].append(tri)
+
+        #Exits goed maken voor de rooms.
+
+        self.rooms = []
+        for i in range(numrooms):
+            #print("Creating room with name: " + self.allnames[i] + " exits: " + str(allexits[i]) + " items: " + str(itemlist[i]) + " npcs: " + str(npclist[i]))
+            newroom = Room(self.allnames[i], allexits[i], itemlist[i], npclist[i])
+            self.rooms.append(newroom)
+
+
+        for room in self.rooms:
+            #EXITS GOEDMAKEN
+            exitslist = []
+            for exit in room.getExits():
+                try:
+                    exitslist.append(self.rooms[self.allnames.index(exit)])
+                except Exception as err:
+                    print('ERROR bij syncing van rooms en exits' + str(err))
+            room.setExits(exitslist)
 
     def add_room(self, room):
         self.rooms.append(room)
@@ -113,6 +216,7 @@ class World:
             itemindex = 0
             length = len(room.items)
             while (itemindex < length):
+                print("checking " + room.items[itemindex].name + " == " + name)
                 if (room.items[itemindex].getName() == name):
                     room.items.pop(itemindex)
                     itemindex -= 1

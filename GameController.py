@@ -1,5 +1,6 @@
 from World import World
 from Player import Player
+
 import os
 
 class GameController:
@@ -86,85 +87,8 @@ class GameController:
     def getTriforcecount(self):
         return self.triforcecount
 
-    def readWorldfromXML(self):
-        self.printHeader()
-        self.printRegel('Which file would you like to read from?')
-        self.printFooter()
-        filename = input()
-        with open('maps/' + filename + '.xml', 'r') as file:
-            text = file.read()
-            lines = text.split("\n")
-            numlines = len(lines)
-
-            roombeginindexes = []
-            roomendindexes = []
-            #lines = file.readlines()
-
-            try:
-                '''
-                roomcount = 0
-                for lineIndex in range(numlines):
-                    if "<Room>" in lines[lineIndex]:
-                        roomcount += 1
-                        roombeginindexes.append(lineIndex)
-
-                for lineIndex in range(numlines):
-                    if "</Room>" in lines[lineIndex]:
-                        roomcount += 1
-                        roomendindexes.append(lineIndex)
-
-                for i in range(len(roombeginindexes)):
-                    self.readRoomFromLines(lines, roombeginindexes[i], roomendindexes[i])
-
-                print(roomcount)
-                print(lines)
-                input()
-                '''
-                roomcount = 0
-
-                beginindex = 0
-                roombeginindexes = []
-
-                #while (not laatstegevonden)
-                beginindex = text.find("<Room>", beginindex)
-
-                print(beginindex)
-
-
-                roombeginindexes.pop(len(roombeginindexes)-1)
-
-                print(roombeginindexes)
-
-                print("i am dunzo")
-
-
-            except Exception as err:
-                print("you sussy baka, that's not a valid file!!!!")
-                print(err)
-                input()
-
-            file.close()
-
-    def readRoomFromLines(self, lines,beginindex, endindex):
-        roomname = ''
-        roomitems = []
-        roompeople = []
-        roomexits = []
-
-        '''
-        for lineIndex in range(beginindex, endindex+1):
-            if lines[lineIndex] == '<Name>' and lines[lineIndex+2] == '</Name>':
-                roomname = lines[lineindex+1]
-            if lines[lineIndex] == '<Exits>' and lines[lineIndex+2] == '</Exits>':
-                #roomexits.append(lines[])
-                pass
-            print(lines[lineIndex])
-        '''
-
     def __init__(self):
         self.schermbreedte = 70
-        self.clear()
-        #self.readWorldfromXML()
         self.clear()
         self.notDone = True
 
@@ -181,15 +105,29 @@ class GameController:
 
         self.triforcecount = 3
 
+        self.world = World()
+
+        self.printHeader()
+        self.printRegel("Uit welk file wilt u de map lezen?")
+        self.printFooter()
+
+        location = input()
+
+        last = location[-4:]
+
+        if last == ".txt":
+            self.world.create_worldTXT(location)
+        elif last == ".xml":
+            self.world.create_worldXML(location)
+        else:
+            self.printHeader()
+            self.printRegel("Dat is geen valide file.")
+            self.printFooter()
+
         self.printHeader()
         self.printRegel("What is your name?")
         self.printFooter()
         playerName = input()
-        self.clear()
-
-
-        self.world = World()
-        self.world.create_world()
 
         self.player = Player(playerName)
         self.player.set_current_room(self.world.first_room())

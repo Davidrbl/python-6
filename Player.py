@@ -22,6 +22,7 @@ class Player:
             if (room.items[i].name == itemstring):
                 item = room.items[i]
                 self.inventory.append(item)
+                print("picked up " + item.name)
                 room.items[i].onPickup(game)
                 #room.items.pop(i)
                 break

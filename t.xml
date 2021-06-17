@@ -1,0 +1,10 @@
+<World>
+  <Room name="Cave">
+    <Exit name="River"/>
+    <Item name="A rock" dupes=""/>
+  </Room>
+  <Room name="River">
+    <Exit name="Cave"/>
+    <Item name="A rock" dupes=""/>
+  </Room>
+</World>

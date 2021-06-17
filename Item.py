@@ -14,11 +14,13 @@ class Item:
         return self.place
 
     def onPickup(self, game):
+        print(len(self.dupes))
         if (len(self.dupes) != 0):
             for dupename in self.dupes:
                 game.getWorld().deleteItemsWithName(dupename)
 
         else:
+            print(self.name)
             game.getWorld().deleteItemsWithName(self.name)
 
 
